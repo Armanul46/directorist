@@ -357,9 +357,15 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 			Helper::get_template( 'search-form/form-box', array( 'searchform' => $searchform ) );
 			$search_form = ob_get_clean();
 
+			// all listings search form
+			ob_start();
+			Helper::get_template( 'archive/search-form', array( 'searchform' => $searchform ) );
+			$all_listing = ob_get_clean();
+
 			wp_send_json(
 				array(
 					'search_form' => $search_form,
+					'all_listing' => $all_listing
 				)
 			);
 		}

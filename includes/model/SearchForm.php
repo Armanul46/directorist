@@ -288,6 +288,14 @@ class Directorist_Listing_Search_Form {
 					if ( !empty( $submission_form_fields['fields'][$form_key]['options'] ) ) {
 						$search_form_fields['fields'][$key]['options'] = $submission_form_fields['fields'][$form_key]['options'];
 					}
+
+					if ( !empty( $submission_form_fields['fields'][$form_key]['assign_to'] ) ) {
+						$search_form_fields['fields'][$key]['assign_to'] = $submission_form_fields['fields'][$form_key]['assign_to'];
+						
+						if( 'category' == $submission_form_fields['fields'][$form_key]['assign_to'] ) {
+							$search_form_fields['fields'][$key]['category'] = $submission_form_fields['fields'][$form_key]['category'];
+						}
+					}
 				}
 
 			}
