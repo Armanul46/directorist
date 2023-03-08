@@ -1385,8 +1385,13 @@ __webpack_require__.r(__webpack_exports__);
     //     }
     // });
 
-    $('body').on('change', '.directorist-search-form .directorist-category-select', function (event) {
+    $('body').on('change', '.directorist-search-form .directorist-category-select,', function (event) {
       var $container = $(this).parents('form.directorist-search-form');
+      var search_from = 'category';
+      render_category_custom_search_fields($container, search_from); //$container.addClass('atbdp-form-fade');
+    });
+    $('body').on('change', '.directorist-advanced-filter__form .directorist-category-select', function (event) {
+      var $container = $(this).parents('form.directorist-advanced-filter__form');
       var search_from = 'category';
       render_category_custom_search_fields($container, search_from); //$container.addClass('atbdp-form-fade');
     });

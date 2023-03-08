@@ -555,8 +555,16 @@ import { directorist_range_slider } from './range-slider';
         //     }
         // });
 
-        $('body').on('change', '.directorist-search-form .directorist-category-select', function (event) {
+        $('body').on('change', '.directorist-search-form .directorist-category-select,', function (event) {
             const $container  = $(this).parents('form.directorist-search-form');
+            const search_from = 'category';
+            render_category_custom_search_fields( $container, search_from );
+            //$container.addClass('atbdp-form-fade');
+
+        });
+
+        $('body').on('change', '.directorist-advanced-filter__form .directorist-category-select', function (event) {
+            const $container  = $(this).parents('form.directorist-advanced-filter__form');
             const search_from = 'category';
             render_category_custom_search_fields( $container, search_from );
             //$container.addClass('atbdp-form-fade');
