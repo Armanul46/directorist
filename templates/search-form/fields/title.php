@@ -2,12 +2,12 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 7.3.1
+ * @version 7.6
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-$value = isset( $_GET['q'] ) ? sanitize_text_field( wp_unslash( $_GET['q'] ) ) : '';
+$value = isset( $_REQUEST['q'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['q'] ) ) : '';
 ?>
 
 <div class="directorist-search-field directorist-form-group directorist-search-query">
