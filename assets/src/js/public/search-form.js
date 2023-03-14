@@ -558,8 +558,9 @@ import { directorist_range_slider } from './range-slider';
         $('body').on('change', '.directorist-search-form .directorist-category-select', function (event) {
             const $container  = $(this).parents('form.directorist-search-form');
             const search_from = 'category';
-            render_category_custom_search_fields( $container, search_from );
             //$container.addClass('atbdp-form-fade');
+            $(this).parents('form.directorist-search-form').addClass('search-category-changed');
+            render_category_custom_search_fields( $container, search_from );
 
         });
 
@@ -644,7 +645,8 @@ import { directorist_range_slider } from './range-slider';
                 atts: JSON.stringify( $container.parents('.directorist-archive-contents').data('atts') )
             };
 
-            $search_form_box.addClass('atbdp-form-fade');
+            //$search_form_box.addClass('atbdp-form-fade');
+            $container.addClass('atbdp-form-fade');
 
             $.ajax({
                 method     : 'POST',
@@ -682,7 +684,8 @@ import { directorist_range_slider } from './range-slider';
 
                 }
 
-                $search_form_box.removeClass('atbdp-form-fade');
+                //$search_form_box.removeClass('atbdp-form-fade');
+                $container.removeClass('atbdp-form-fade');
                 },
                 error: function error(_error) {
                 //console.log(_error);
