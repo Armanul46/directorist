@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 7.4.0
+ * @version 7.6
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
@@ -28,9 +28,9 @@ if ( $location_source == 'listing' ) {
 }
 
 elseif ( $location_source == 'map' ) {
-	$cityLat = isset( $_GET['cityLat'] ) ? sanitize_text_field( wp_unslash( $_GET['cityLat'] ) ) : '';
-	$cityLng = isset( $_GET['cityLng'] ) ? sanitize_text_field( wp_unslash( $_GET['cityLng'] ) ) : '';
-	$value   = isset( $_GET['address'] ) ? sanitize_text_field( wp_unslash( $_GET['address'] ) ) : '';
+	$cityLat = isset( $_REQUEST['cityLat'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['cityLat'] ) ) : '';
+	$cityLng = isset( $_REQUEST['cityLng'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['cityLng'] ) ) : '';
+	$value   = isset( $_REQUEST['address'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['address'] ) ) : '';
 	?>
 
 	<div class="directorist-search-field directorist-form-group directorist-icon-left">
