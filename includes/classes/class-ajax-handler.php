@@ -365,7 +365,7 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 			wp_send_json(
 				array(
 					'search_form' => $search_form,
-					'all_listing' => $all_listing
+					'all_listing' => $all_listing,
 				)
 			);
 		}
