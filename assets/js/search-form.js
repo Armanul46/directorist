@@ -1216,9 +1216,14 @@ __webpack_require__.r(__webpack_exports__);
 
     $(window).on('load', function () {
       if ($('.directorist-search-category .directorist-category-select').val()) {
-        var $containerOne = $('.directorist-search-category').parents('form.directorist-search-form');
+        //const $containerOne  = $('.directorist-search-category').parents('form.directorist-search-form');
         var $containerTwo = $('.directorist-search-category').parents('form.directorist-advanced-filter__form');
+        $containerTwo.parents('.directorist-search-slide').addClass('search-category-changed');
+        $('body').on('change', '.directorist-advanced-filter__form .directorist-category-select, .directorist-advanced-filter__form .directorist-search-category', function (event) {
+          $(this).parents('.directorist-search-slide').removeClass('search-category-changed');
+        });
         var search_from = 'page_load';
+
         //render_category_custom_search_fields( $containerOne, search_from );
         render_category_custom_search_fields($containerTwo, search_from);
         //storeCustomFieldsData();
@@ -1285,8 +1290,6 @@ __webpack_require__.r(__webpack_exports__);
         data.cityLng = $container.find('#cityLng').val();
         data.miles = $container.find('.directorist-range-slider-value').val();
       }
-
-      //$search_form_box.addClass('atbdp-form-fade');
       $container.addClass('atbdp-form-fade');
       $.ajax({
         method: 'POST',
@@ -1302,9 +1305,8 @@ __webpack_require__.r(__webpack_exports__);
 
             if (response['all_listing']) {
               $container.parents('.directorist-archive-contents').find('.directorist-search-slide').html(response['all_listing']);
-              if (search_from === "category") {
-                //$('.directorist-advanced-filter').css("display", "block");
-              }
+              if (search_from === "category") {}
+              if (search_from === "page_load") {}
             }
             [new CustomEvent('directorist-search-form-nav-tab-reloaded'), new CustomEvent('directorist-reload-select2-fields'), new CustomEvent('directorist-reload-map-api-field'), new CustomEvent('triggerSlice')].forEach(function (event) {
               document.body.dispatchEvent(event);

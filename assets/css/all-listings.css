@@ -15145,7 +15145,8 @@ Review: New Style
   padding: 100px 0 120px;
   z-index: 2;
 }
-.directorist-search-contents .directorist-search-form.search-category-changed .directorist-advanced-filter {
+
+.search-category-changed .directorist-advanced-filter {
   display: none;
 }
 

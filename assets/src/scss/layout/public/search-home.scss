@@ -22,12 +22,11 @@
   background-size: cover;
   padding: 100px 0 120px;
   z-index: 2;
-  .directorist-search-form {
-    &.search-category-changed {
-      .directorist-advanced-filter {
-        display: none;
-      }
-    }
+}
+
+.search-category-changed {
+  .directorist-advanced-filter {
+    display: none;
   }
 }
 
