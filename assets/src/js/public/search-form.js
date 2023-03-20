@@ -580,21 +580,22 @@ import { directorist_range_slider } from './range-slider';
                 data       : data,
                 success: function success(response) {
                 if (response) {
-                    
+
                     if( response['search_form'] ) {
                         $search_form_box.html( response['search_form'] );
-                        $container.find('.directorist-category-select option').data('custom-field', 1);
-                        //$container.find('.directorist-category-select').val(cat_id);
+                        //$container.find('.directorist-category-select option').data('custom-field', 1);
+                        $container.find('.directorist-search-category select').val(cat_id);
                     }
 
                     if( response['all_listing'] ) {
                         $container.parents('.directorist-archive-contents').find('.directorist-search-slide').html( response['all_listing'] );
         
                         if( search_from === "category" ) {
-
+                            $container.find('.directorist-search-category select').val(cat_id);
                         }
         
                         if( search_from === "page_load" ) {
+                            $container.find('.directorist-search-category select').val(cat_id);
 
                         }
                         

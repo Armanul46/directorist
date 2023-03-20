@@ -1299,14 +1299,17 @@ __webpack_require__.r(__webpack_exports__);
           if (response) {
             if (response['search_form']) {
               $search_form_box.html(response['search_form']);
-              $container.find('.directorist-category-select option').data('custom-field', 1);
-              //$container.find('.directorist-category-select').val(cat_id);
+              //$container.find('.directorist-category-select option').data('custom-field', 1);
+              $container.find('.directorist-search-category select').val(cat_id);
             }
-
             if (response['all_listing']) {
               $container.parents('.directorist-archive-contents').find('.directorist-search-slide').html(response['all_listing']);
-              if (search_from === "category") {}
-              if (search_from === "page_load") {}
+              if (search_from === "category") {
+                $container.find('.directorist-search-category select').val(cat_id);
+              }
+              if (search_from === "page_load") {
+                $container.find('.directorist-search-category select').val(cat_id);
+              }
             }
             [new CustomEvent('directorist-search-form-nav-tab-reloaded'), new CustomEvent('directorist-reload-select2-fields'), new CustomEvent('directorist-reload-map-api-field'), new CustomEvent('triggerSlice')].forEach(function (event) {
               document.body.dispatchEvent(event);
