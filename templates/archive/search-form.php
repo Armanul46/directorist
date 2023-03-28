@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 7.3.1
+ * @version 7.6
  */
 ?>
 
@@ -12,7 +12,6 @@ if (is_numeric($searchform->listing_type)) {
 	$listing_type = $term->slug;
 }
 $category_id = ! empty( $_REQUEST['cat_id'] ) ? $_REQUEST['cat_id'] : '';
-//e_var_dump( $searchform->form_data[1]['fields'] );
 ?>
 
 <div class="directorist-archive-adv-filter directorist-advanced-filter">

@@ -470,41 +470,43 @@ import { directorist_range_slider } from './range-slider';
         });
 
         $('body').on('change', '.directorist-search-form .directorist-category-select', function (event) {
+            const has_custom_field = $(this).find('option:selected').attr('data-custom-field');
+            if( !has_custom_field ) {
+                return;
+            }
             const $container  = $(this).parents('form.directorist-search-form');
-            const search_from = 'category';
-            //$container.addClass('atbdp-form-fade');
             $(this).parents('form.directorist-search-form').addClass('search-category-changed');
-            render_category_custom_search_fields( $container, search_from );
+            render_category_custom_search_fields( $container );
 
         });
 
         $('body').on('change', '.directorist-advanced-filter__form .directorist-category-select, .directorist-advanced-filter__form .directorist-search-category', function (event) {
-            const $container  = $(this).parents('form.directorist-advanced-filter__form');
-            const search_from = 'category';
-            render_category_custom_search_fields( $container, search_from );
-            //$container.addClass('atbdp-form-fade');
-
+            const has_custom_field = $(this).find('option:selected').attr('data-custom-field');
+            if( !has_custom_field ) {
+                return;
+            }
+            const $container  = $(this).parents('.directorist-container-fluid');
+            render_category_custom_search_fields( $container );
         });
        
         $(window).on('load', function () {
             if( $( '.directorist-search-category .directorist-category-select' ).val() ) {
-                //const $containerOne  = $('.directorist-search-category').parents('form.directorist-search-form');
-                const $containerTwo  = $('.directorist-search-category').parents('form.directorist-advanced-filter__form');
-                $containerTwo.parents('.directorist-search-slide').addClass('search-category-changed');
+                const $container = $('.directorist-search-category').parents('form.directorist-advanced-filter__form');
+                $container.parents('.directorist-search-slide').addClass('search-category-changed');
 
                 $('body').on('change', '.directorist-advanced-filter__form .directorist-category-select, .directorist-advanced-filter__form .directorist-search-category', function (event) {
+                    const has_custom_field = $(this).find('option:selected').attr('data-custom-field');
+                    if( !has_custom_field ) {
+                        return;
+                    }
                     $(this).parents('.directorist-search-slide').removeClass('search-category-changed');
                 });
 
-                const search_from = 'page_load';
-
-                //render_category_custom_search_fields( $containerOne, search_from );
-                render_category_custom_search_fields( $containerTwo, search_from );
-                //storeCustomFieldsData();
+                render_category_custom_search_fields( $container );
             }
         });
 
-        function render_category_custom_search_fields( $container, search_from ) {
+        function render_category_custom_search_fields( $container ) {
 
             let tag          = [];
             let price        = [];
@@ -546,24 +548,24 @@ import { directorist_range_slider } from './range-slider';
             var $search_form_box = $container.find('.directorist-search-form-box-wrap');
 
             var data = {
-                action: 'directorist_category_custom_field_search',
-                nonce: directorist.directorist_nonce,
-                listing_type: directory_type,
-                q: $container.find('input[name="q"]').val(),
-                email: $container.find('input[name="email"]').val(),
-                cat_id: cat_id,
-                in_tag: tag,
-                price: price,
-                custom_field: custom_field,
-                in_loc: $container.find('.bdas-category-location, .directorist-location-select').val(),
-                price_range: $container.find("input[name='price_range']:checked").val(),
+                action          : 'directorist_category_custom_field_search',
+                nonce           : directorist.directorist_nonce,
+                listing_type    : directory_type,
+                q               : $container.find('input[name="q"]').val(),
+                email           : $container.find('input[name="email"]').val(),
+                cat_id          : cat_id,
+                in_tag          : tag,
+                price           : price,
+                custom_field    : custom_field,
+                in_loc          : $container.find('.bdas-category-location, .directorist-location-select').val(),
+                price_range     : $container.find("input[name='price_range']:checked").val(),
                 search_by_rating: $container.find('select[name=search_by_rating]').val(),
-                address: $container.find('input[name="address"]').val(),
-                zip: $container.find('input[name="zip"]').val(),
-                fax: $container.find('input[name="fax"]').val(),
-                website: $container.find('input[name="website"]').val(),
-                phone: $container.find('input[name="phone"]').val(),
-                atts: JSON.stringify( $container.parents('.directorist-archive-contents').data('atts') )
+                address         : $container.find('input[name="address"]').val(),
+                zip             : $container.find('input[name="zip"]').val(),
+                fax             : $container.find('input[name="fax"]').val(),
+                website         : $container.find('input[name="website"]').val(),
+                phone           : $container.find('input[name="phone"]').val(),
+                atts            : JSON.stringify( $container.parents('.directorist-archive-contents').data('atts') )
             };
 
             if ( data.address && data.address.length ) {
@@ -583,23 +585,13 @@ import { directorist_range_slider } from './range-slider';
 
                     if( response['search_form'] ) {
                         $search_form_box.html( response['search_form'] );
-                        //$container.find('.directorist-category-select option').data('custom-field', 1);
-                        $container.find('.directorist-search-category select').val(cat_id);
                     }
 
                     if( response['all_listing'] ) {
                         $container.parents('.directorist-archive-contents').find('.directorist-search-slide').html( response['all_listing'] );
-        
-                        if( search_from === "category" ) {
-                            $container.find('.directorist-search-category select').val(cat_id);
-                        }
-        
-                        if( search_from === "page_load" ) {
-                            $container.find('.directorist-search-category select').val(cat_id);
-
-                        }
-                        
                     }
+
+                    $container.find('.directorist-search-category select').val( cat_id );
                     
                     [
                     new CustomEvent('directorist-search-form-nav-tab-reloaded'),
@@ -614,7 +606,6 @@ import { directorist_range_slider } from './range-slider';
 
                 }
 
-                //$search_form_box.removeClass('atbdp-form-fade');
                 $container.removeClass('atbdp-form-fade');
                 },
                 error: function error(_error) {
