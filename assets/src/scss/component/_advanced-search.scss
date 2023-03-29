@@ -109,6 +109,21 @@
     }
 }
 
+// Initially hide the advanced search filter when page load
+.directorist-archive-contents,
+.directorist-search-form-box {
+    .directorist-advanced-filter {
+        display: none;
+    }
+}
+
+// Search Form Advanced Filter Visible when category change
+.search-category-changed {
+  .directorist-advanced-filter {
+    display: block;
+  }
+}
+
 .directorist-price-ranges{
     display: flex;
     flex-wrap: wrap;

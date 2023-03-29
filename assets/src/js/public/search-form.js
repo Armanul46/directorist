@@ -475,7 +475,6 @@ import { directorist_range_slider } from './range-slider';
                 return;
             }
             const $container  = $(this).parents('form.directorist-search-form');
-            $(this).parents('form.directorist-search-form').addClass('search-category-changed');
             render_category_custom_search_fields( $container );
 
         });
@@ -486,20 +485,20 @@ import { directorist_range_slider } from './range-slider';
                 return;
             }
             const $container  = $(this).parents('.directorist-container-fluid');
+            $(this).parents('.directorist-search-slide').addClass('search-category-changed');
             render_category_custom_search_fields( $container );
         });
        
         $(window).on('load', function () {
             if( $( '.directorist-search-category .directorist-category-select' ).val() ) {
                 const $container = $('.directorist-search-category').parents('form.directorist-advanced-filter__form');
-                $container.parents('.directorist-search-slide').addClass('search-category-changed');
 
                 $('body').on('change', '.directorist-advanced-filter__form .directorist-category-select, .directorist-advanced-filter__form .directorist-search-category', function (event) {
                     const has_custom_field = $(this).find('option:selected').attr('data-custom-field');
                     if( !has_custom_field ) {
                         return;
                     }
-                    $(this).parents('.directorist-search-slide').removeClass('search-category-changed');
+                    $(this).parents('.directorist-search-slide').addClass('search-category-changed');
                 });
 
                 render_category_custom_search_fields( $container );
