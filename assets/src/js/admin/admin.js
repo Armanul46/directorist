@@ -10,6 +10,7 @@ import './components/block-3';
 import './components/block-4';
 import './components/block-5';
 import './components/admin-user';
+import './components/pre-made-types';
 
 // subscriptionManagement
 import './components/subscriptionManagement';

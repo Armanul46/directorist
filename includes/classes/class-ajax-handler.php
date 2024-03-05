@@ -3,6 +3,7 @@ defined( 'ABSPATH' ) || die( 'Direct access is not allowed.' );
 
 use \Directorist\Helper;
 use \Directorist\Directorist_All_Authors;
+use Directorist\Multi_Directory\Multi_Directory_Manager;
 
 if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 
@@ -118,7 +119,33 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 			// zipcode search
 			add_action( 'wp_ajax_directorist_zipcode_search', array( $this, 'zipcode_search' ) );
 			add_action( 'wp_ajax_nopriv_directorist_zipcode_search', array( $this, 'zipcode_search' ) );
+
+			// pre made directory type
+			add_action( 'wp_ajax_directorist_pre_made_types', array( $this, 'pre_made_types' ) );
 		}
+
+		public function pre_made_types() {
+			
+			$url            = sanitize_text_field($_POST['url'] ?? '');
+			$file_contents = directorist_get_json_from_url( $url );
+
+			if( $file_contents ) {
+				$multi_directory_manager = new Multi_Directory_Manager;
+
+                $multi_directory_manager->prepare_settings();
+                $add_directory = $multi_directory_manager->add_directory([
+                    'directory_name' => 'Need Listings',
+                    'fields_value'   => $file_contents,
+                    'is_json'        => false
+                ]);
+                $directory_type = $add_directory['term_id'];
+				$redirect_url  = admin_url( "edit.php?post_type=at_biz_dir&page=atbdp-directory-types&listing_type_id={$directory_type}&action=edit" );
+
+				wp_send_json_success( $redirect_url );
+			} 
+			exit;
+		}
+		
 
 		public function send_confirm_email() {
 			if ( ! check_ajax_referer( 'directorist_nonce', 'directorist_nonce', false ) ) {

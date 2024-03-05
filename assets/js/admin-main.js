@@ -110,14 +110,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_block_5__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_components_block_5__WEBPACK_IMPORTED_MODULE_6__);
 /* harmony import */ var _components_admin_user__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/admin-user */ "./assets/src/js/admin/components/admin-user.js");
 /* harmony import */ var _components_admin_user__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_components_admin_user__WEBPACK_IMPORTED_MODULE_7__);
-/* harmony import */ var _components_subscriptionManagement__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/subscriptionManagement */ "./assets/src/js/admin/components/subscriptionManagement.js");
-/* harmony import */ var _components_subscriptionManagement__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_components_subscriptionManagement__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var _components_pre_made_types__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/pre-made-types */ "./assets/src/js/admin/components/pre-made-types.js");
+/* harmony import */ var _components_pre_made_types__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_components_pre_made_types__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var _components_subscriptionManagement__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/subscriptionManagement */ "./assets/src/js/admin/components/subscriptionManagement.js");
+/* harmony import */ var _components_subscriptionManagement__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(_components_subscriptionManagement__WEBPACK_IMPORTED_MODULE_9__);
 
 
 // Global
 
 
 // Blocks
+
 
 
 
@@ -1615,6 +1618,38 @@ window.addEventListener('DOMContentLoaded', function () {
     }
   });
 });
+
+/***/ }),
+
+/***/ "./assets/src/js/admin/components/pre-made-types.js":
+/*!**********************************************************!*\
+  !*** ./assets/src/js/admin/components/pre-made-types.js ***!
+  \**********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+(function ($) {
+  window.addEventListener('DOMContentLoaded', function () {
+    $('.directorist-add-types').on('click', function (event) {
+      event.preventDefault();
+      var url = $(this).attr('data-url');
+      var nonce = $(this).attr('data-nonce');
+      console.log(url);
+      $.ajax({
+        type: 'post',
+        url: directorist_admin.ajaxurl,
+        data: {
+          action: 'directorist_pre_made_types',
+          _nonce: nonce,
+          url: url
+        },
+        success: function success(response) {
+          console.log(response);
+        }
+      });
+    });
+  });
+})(jQuery);
 
 /***/ }),
 

@@ -544,7 +544,18 @@ class Multi_Directory_Manager {
         ];
 
         if ( ! $enable_multi_directory || ( ! empty( $action ) && 'pre-made-types' === $action ) ) {
-            atbdp_load_admin_template( 'post-types-manager/pre-made-types' );
+            wp_enqueue_script( 'directorist-admin-script' );
+            $request_directory_types = wp_remote_get( 'https://app.directorist.com/wp-json/directorist/v1/get-directory-types' );
+
+            if( is_wp_error( $request_directory_types ) ) {
+                return false;
+            }
+
+            $response_body = wp_remote_retrieve_body( $request_directory_types );
+
+            $data['pre_made_types'] = json_decode( $response_body, true ); 
+
+            atbdp_load_admin_template( 'post-types-manager/pre-made-types', $data );
             return;
         }
 
