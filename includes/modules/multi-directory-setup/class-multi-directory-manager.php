@@ -543,6 +543,11 @@ class Multi_Directory_Manager {
             'add_new_link' => admin_url('edit.php?post_type=at_biz_dir&page=atbdp-directory-types&action=add_new'),
         ];
 
+        if ( ! $enable_multi_directory || ( ! empty( $action ) && 'pre-made-types' === $action ) ) {
+            atbdp_load_admin_template( 'post-types-manager/pre-made-types' );
+            return;
+        }
+
         if ( ! $enable_multi_directory || ( ! empty( $action ) && ('edit' === $action || 'add_new' === $action ) ) ) {
             $this->prepare_settings();
             $this->add_missing_single_listing_section_id();
