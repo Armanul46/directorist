@@ -154,7 +154,7 @@ import {
         let view_href      = instant_search_element.find(".directorist-viewas .directorist-viewas__item.active").attr('href');
         let view_as        = (view_href && view_href.length) ? view_href.match(/view=.+/) : '';
         let view           = (view_as && view_as.length) ? view_as[0].replace(/view=/, '') : '';
-        let type_href      = instant_search_element.find('.directorist-type-nav__list .current a').attr('href');
+        let type_href      = instant_search_element.find('.directorist-type-nav__list .directorist-type-nav__list__current a').attr('href');
         let type           = (type_href && type_href.length) ? type_href.match(/directory_type=.+/) : '';
         let directory_type = getURLParameter(type_href, 'directory_type');
         let data_atts      = instant_search_element.attr('data-atts');
@@ -585,12 +585,11 @@ import {
         let sort           = (sort_by && sort_by.length) ? sort_by[0].replace(/sort=/, '') : '';
         let view_href      = $(this).closest(this).attr('href');
         let view           = (view_href && view_href.length) ? view_href.match(/view=.+/) : '';
-        let type_href      = instant_search_element.find('.directorist-type-nav__list .current a').attr('href');
+        let type_href      = instant_search_element.find('.directorist-type-nav__list .directorist-type-nav__list__current a').attr('href');
         let type           = (type_href && type_href.length) ? type_href.match(/directory_type=.+/) : '';
         let directory_type = getURLParameter(type_href, 'directory_type');
         let page_no        = $(this).closest(".page-numbers.current").text();
         let data_atts      = instant_search_element.attr('data-atts');
-
         let q                = instant_search_element.find('input[name="q"]').val();
         let in_cat           = instant_search_element.find('.bdas-category-search, .directorist-category-select').val();
         let in_loc           = instant_search_element.find('.bdas-category-location, .directorist-location-select').val();
@@ -726,7 +725,7 @@ import {
         let view             = (view_as && view_as.length) ? view_as[0].replace(/view=/, '') : '';
         let sort_href        = $(this).closest(this).attr('data-link');
         let sort_by          = sort_href.match(/sort=.+/);
-        let type_href        = instant_search_element.find('.directorist-type-nav__list .current a').attr('href');
+        let type_href        = instant_search_element.find('.directorist-type-nav__list .directorist-type-nav__list__current a').attr('href');
         let type             = (type_href && type_href.length) ? type_href.match(/directory_type=.+/) : '';
         let directory_type   = getURLParameter(type_href, 'directory_type');
         let data_atts        = instant_search_element.attr('data-atts');
@@ -857,7 +856,7 @@ import {
         let view_href      = instant_search_element.find(".directorist-viewas .directorist-viewas__item.active").attr('href');
         let view_as        = (view_href && view_href.length) ? view_href.match(/view=.+/) : '';
         let view           = (view_as && view_as.length) ? view_as[0].replace(/view=/, '') : '';
-        let type_href      = instant_search_element.find('.directorist-type-nav__list .current a').attr('href');
+        let type_href      = instant_search_element.find('.directorist-type-nav__list .directorist-type-nav__list__current a').attr('href');
         let type           = (type_href && type_href.length) ? type_href.match(/directory_type=.+/) : '';
         let directory_type = getURLParameter(type_href, 'directory_type');
         let data_atts      = instant_search_element.attr('data-atts');
@@ -995,7 +994,7 @@ import {
         let view_href      = $(".directorist-viewas .directorist-viewas__item.active").attr('href');
         let view_as        = (view_href && view_href.length) ? view_href.match(/view=.+/) : '';
         let view           = (view_as && view_as.length) ? view_as[0].replace(/view=/, '') : '';
-        let type_href      = $('.directorist-type-nav__list .current a').attr('href');
+        let type_href      = $('.directorist-type-nav__list .directorist-type-nav__list__current a').attr('href');
         let type           = (type_href && type_href.length) ? type_href.match(/directory_type=.+/) : '';
         let directory_type = getURLParameter(type_href, 'directory_type');
         let data_atts      = $('.directorist-instant-search').attr('data-atts');
