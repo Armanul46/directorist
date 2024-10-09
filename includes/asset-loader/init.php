@@ -254,6 +254,13 @@ class Asset_Loader {
 			wp_enqueue_style( 'directorist-unicons' );
 			wp_enqueue_script( 'directorist-settings-manager' );
 			wp_enqueue_media();
+
+			// Inline styles
+			$load_inline_style = apply_filters( 'directorist_load_inline_style', true );
+			if ( $load_inline_style ) {
+				wp_add_inline_style( 'directorist-admin-style', Helper::dynamic_style() );
+			}
+			
 		} elseif ( Helper::is_admin_page( 'support' ) ) {
 			// @todo remove lineawesome dependency
 			wp_enqueue_style( 'directorist-admin-style' );
