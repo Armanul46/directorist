@@ -15,7 +15,7 @@ $value            = ! empty( $_REQUEST['miles'] ) ? sanitize_text_field( wp_unsl
 if ( ! empty( $_REQUEST['miles'] ) ) {
 	$distance =	directorist_get_distance_range( $_REQUEST['miles'] );
 	$min_distance = $distance['min'];
-	$max_distance = $distance['max'];
+	$default_distance = $distance['max'];
 }
 ?>
 
