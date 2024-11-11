@@ -48,6 +48,9 @@ import debounce from '../../global/components/debounce';
             if (form_data.address && form_data.address.length) {
                 var query = (query && query.length) ? query + '&address=' + form_data.address : '?address=' + form_data.address;
             }
+            if (form_data.miles && form_data.miles.length) {
+                var query = (query && query.length) ? query + '&miles=' + form_data.miles : '?miles=' + form_data.miles;
+            }
             if (form_data.zip && form_data.zip.length) {
                 var query = (query && query.length) ? query + '&zip=' + form_data.zip : '?zip=' + form_data.zip;
             }
@@ -1233,8 +1236,15 @@ import debounce from '../../global/components/debounce';
 
     }, 250));
 
+    $('body').on("keyup", ".directorist-instant-search .listing-with-sidebar input[name='address']", debounce( function(e) {
+        e.preventDefault();
+        $(this).closest('.directorist-search-field').find('#cityLat').val(''); 
+        $(this).closest('.directorist-search-field').find('#cityLng').val('');
+
+    }, 250));
+
     // sidebar on change searching
-    $('body').on("change", ".directorist-instant-search .listing-with-sidebar input[type='checkbox'],.directorist-instant-search .listing-with-sidebar input[type='radio'], .directorist-custom-range-slider__wrap .directorist-custom-range-slider__range", debounce( function(e) {
+    $('body').on("change", ".directorist-instant-search .listing-with-sidebar input[type='checkbox'],.directorist-instant-search .listing-with-sidebar input[type='radio'], .directorist-custom-range-slider__wrap .directorist-custom-range-slider__range, .directorist-instant-search .listing-with-sidebar input[name='address']", debounce( function(e) {
         e.preventDefault();
         var searchElm = $(this).closest('.listing-with-sidebar');
         filterListing(searchElm);
