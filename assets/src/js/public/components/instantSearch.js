@@ -196,13 +196,13 @@ import debounce from '../../global/components/debounce';
         if (fields.address && fields.address.length) {
             fields.cityLat = $(this).find('#cityLat').val();
             fields.cityLng = $(this).find('#cityLng').val();
-            fields.miles = $(this).find('.directorist-custom-range-slider__value input').val();
+            fields.miles   = $(this).find('input[name="miles"]').val();
         }
 
         if (fields.zip && fields.zip.length) {
             fields.zip_cityLat = $(this).find('.zip-cityLat').val();
             fields.zip_cityLng = $(this).find('.zip-cityLng').val();
-            fields.miles = $(this).find('.directorist-custom-range-slider__value input').val();
+            fields.miles       = $(this).find('input[name="miles"]').val();
         }
 
         var form_data = {

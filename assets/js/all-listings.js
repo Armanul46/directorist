@@ -1478,12 +1478,12 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     if (fields.address && fields.address.length) {
       fields.cityLat = $(this).find('#cityLat').val();
       fields.cityLng = $(this).find('#cityLng').val();
-      fields.miles = $(this).find('.directorist-custom-range-slider__value input').val();
+      fields.miles = $(this).find('input[name="miles"]').val();
     }
     if (fields.zip && fields.zip.length) {
       fields.zip_cityLat = $(this).find('.zip-cityLat').val();
       fields.zip_cityLng = $(this).find('.zip-cityLng').val();
-      fields.miles = $(this).find('.directorist-custom-range-slider__value input').val();
+      fields.miles = $(this).find('input[name="miles"]').val();
     }
     var form_data = _objectSpread(_objectSpread({}, data), fields);
     var allFieldsAreEmpty = Object.values(fields).every(function (item) {
