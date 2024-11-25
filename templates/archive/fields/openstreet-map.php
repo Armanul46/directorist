@@ -84,28 +84,21 @@
 
 		<?php if ( ! empty( $ls_data['address'] ) || ! empty( $ls_data['phone'] )  ) { ?>
 			<div class="map-listing-card-single__content__info">
-				<?php
-					if ( ! empty( $ls_data['address'] ) ) {
-						if ( ! empty( $display_address_map ) ) { ?>
-							<div class='directorist-info-item map-listing-card-single__content__address'>
-								<?php directorist_icon( 'fas fa-map-marker-alt' ); ?>
-								<div class="map-listing-card-single__content__location">
-									<?php echo $ls_data['listings']->get_the_location() ?>
-								</div>
-							</div>
-							<?php
-						}
-
-					}
-
-					if ( ! empty( $ls_data['phone'] ) && ! empty( $display_phone_map ) ) { ?>
-						<div class='directorist-info-item map-listing-card-single__content__phone'>
-							<?php directorist_icon( 'fas fa-phone-alt' ); ?>
-							<a href='./' class='map-info-link'><?php echo esc_html( $ls_data['phone'] ); ?></a>
+				<?php if ( ! empty( $ls_data['address'] ) && ! empty( $display_address_map ) ) : ?>
+					<div class='directorist-info-item map-listing-card-single__content__address'>
+						<?php directorist_icon( 'fas fa-map-marker-alt' ); ?>
+						<div class="map-listing-card-single__content__location">
+							<?php echo $ls_data['address']; ?>
 						</div>
-						<?php
-					}
-				?>
+					</div>
+				<?php endif; ?>
+				
+				<?php if ( ! empty( $ls_data['phone'] ) && ! empty( $display_phone_map ) ) : ?>
+					<div class='directorist-info-item map-listing-card-single__content__phone'>
+						<?php directorist_icon( 'fas fa-phone-alt' ); ?>
+						<a href='./' class='map-info-link'><?php echo esc_html( $ls_data['phone'] ); ?></a>
+					</div>
+				<?php endif; ?>
 			</div>
 		<?php } ?>
 	</div>

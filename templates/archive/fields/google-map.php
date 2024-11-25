@@ -36,7 +36,7 @@
 					}
 
 					if ( empty( $ls_data['listing_img'][0] ) && empty( $ls_data['listing_prv_img'] ) ) {?>
-						<img src='<?php echo esc_url( $ls_data['default_image'] ); ?>' alt='<?php echo esc_attr( get_the_title() ); ?>'>
+						<img src='<?php echo esc_url( $ls_data['default_img'] ?? "" ); ?>' alt='<?php echo esc_attr( get_the_title() ); ?>'>
 						<?php
 					}
 
@@ -89,28 +89,21 @@
 
 				<?php if ( ! empty( $ls_data['address'] ) || ! empty( $ls_data['phone'] )  ) { ?>
 					<div class="map-listing-card-single__content__info">
-						<?php
-							if ( ! empty( $ls_data['address'] ) ) {
-								if ( ! empty( $display_address_map ) ) { ?>
-									<div class='directorist-info-item map-listing-card-single__content__address'>
-										<?php directorist_icon( 'fas fa-map-marker-alt' ); ?>
-										<div class="map-listing-card-single__content__location">
-											<?php echo $ls_data['listings']->get_the_location() ?>
-										</div>
+						<?php if ( ! empty( $ls_data['address'] ) &&  ! empty( $display_address_map ) ) : ?>
+								<div class='directorist-info-item map-listing-card-single__content__address'>
+									<?php directorist_icon( 'fas fa-map-marker-alt' ); ?>
+									<div class="map-listing-card-single__content__location">
+										<?php echo $ls_data['address']; ?>
 									</div>
-									<?php
-								}
-
-							}
-
-							if ( ! empty( $ls_data['phone'] ) && ! empty( $display_phone_map ) ) { ?>
-								<div class='directorist-info-item map-listing-card-single__content__phone'>
-									<?php directorist_icon( 'fas fa-phone-alt' ); ?>
-									<a href='./' class='map-info-link'><?php echo esc_html( $ls_data['phone'] ); ?></a>
 								</div>
-								<?php
-							}
-						?>
+						<?php endif; ?>
+
+						<?php	if ( ! empty( $ls_data['phone'] ) && ! empty( $display_phone_map ) ) : ?>
+							<div class='directorist-info-item map-listing-card-single__content__phone'>
+								<?php directorist_icon( 'fas fa-phone-alt' ); ?>
+								<a href='./' class='map-info-link'><?php echo esc_html( $ls_data['phone'] ); ?></a>
+							</div>
+						<?php endif; ?>
 					</div>
 				<?php } ?>
 			</div>
