@@ -1,7 +1,7 @@
-﻿=== Directorist: AI-Powered Business Directory Plugin with Classified Ads Listings ===
+=== Directorist: AI-Powered Business Directory Plugin with Classified Ads Listings ===
 Contributors: wpwax
 Donate link: https://directorist.com/extensions/
-Tags: member directory, listing, classifieds, directory plugin, business directory
+Tags: business directory, listings, classifieds, directory plugin, directory
 Requires at least: 4.6
 Tested up to: 6.8
 Requires PHP: 7.0
@@ -9,45 +9,34 @@ Stable tag: 8.4.5
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
-An Excellent WP Directory Plugin to Create Business Directories, Job Listings, Classified Ads, Booking Directories, Local Directories, and Service Directories.
+Create Business Directory, Job Listings, Classified Ads, and More with this versatile WordPress directory plugin.
 
-== Description ==
+== Turn your ideas into a profitable directory effortlessly ==
 
-[Try Demo](https://directorist.com/demos/) | [Docs](https://directorist.com/documentation/directorist/) | [Theme](https://directorist.com/themes/) | [Extensions](https://directorist.com/extensions/) | [Roadmap](https://directorist.com/roadmap/)
+[Try Demo](https://directorist.com/demos/) | [Extensions](https://directorist.com/extensions/) | [Themes](https://directorist.com/themes/) | [Documentation](https://directorist.com/documentation/directorist/) | [Roadmap](https://directorist.com/roadmap/)
 
-Struggling to create a niche directory or classified ad website that stands out?
-
-You’re not alone—many find it overwhelming to manage listings and keep everything organized.
-
-Discover Directorist, the AI-powered solution that simplifies directory & classified creations smarter, faster, and more secure. And, eventually, it enhances user experience like never before.
+Powered by AI, Directorist is the ultimate WordPress directory plugin that helps you create, manage, and monetize listings with ease. Built-in SEO optimization ensures your directories rank higher and attract organic traffic, while seamless payment integrations let you monetize effortlessly through paid listings, subscriptions, and premium features.
 
 [youtube https://www.youtube.com/watch?v=28gUzfsGmuk]
 
 
-Using Directorist, the opportunities for scalability in a directory site go beyond the boundary. At
-Directorist, the Preferences tab in the Dashboard is where you can easily customize settings, like hiding contact forms or showing emails, to suit your style.
+With over 580+ five-star reviews and 20,000+ active directory owners, Directorist stands as the leading WordPress directory plugin. Plus, our outstanding support team and extensive documentation are always ready to guide you through every step.
 
-Moreover, serving as a multifaceted platform, it offers different avenues for generating income, providing community service, supporting business operations, enhancing existing ventures, and more. The secret of creating a powerful and lucrative directory and classified website lies in the shell of the Directorist.
+You're not just building a directory—you're creating a thriving community, connecting businesses with customers, and unlocking a sustainable income stream. Choose your niche, and let Directorist help your directory succeed!
 
-Let’s jump right straight into the juicy part of Directorist.
+🎉 Try **[OneListing](https://directorist.com/product/onelisting/)** our free directory theme, to start your directory business journey.
 
-🎉 Try **[Pixetiq](https://wordpress.org/themes/pixetiq/)** the FREE, ultra-fast, modern block theme perfect for building a stunning directory effortlessly!
+== The Only Wordpress Business Directory Plugin with 20k+ Active Users ==
 
-== THE ONLY WORDPRESS BUSINESS DIRECTORY PLUGIN YOU NEED ==
+We've carefully listened to the challenges faced by directory business owners and developed a comprehensive tool that simplifies every aspect of managing a directory site. From customizable features and seamless integrations to advanced monetization options, Directorist ensures your directory business runs effortlessly, whether you're launching a local business directory, real estate listings, job board, or niche-focused platform.
 
-Introducing our robust Directorist, optimized for scalability to an ocean of listings, providing a dynamic experience for managing your online directory and classified website. With Directorist, easily create directories and classifieds by location, category, and interests—all without any coding required.
+🔥🔥🔥 **[Excellente plugin + themes](https://wordpress.org/support/topic/excellente-plugin-themes/)** 🔥🔥🔥
+I had previously tried Directorist with the Director theme and was extremely pleased with what they offered. But when I learned they had specific themes for the businesses I was trying to address, I didn't hesitate and contacted them. There's really a lot of work behind these plugins and themes. The support is very good, and I hope to stay in touch with them for a long time. Regards from Argentina
+– malborarg
 
-🔥🔥🔥 **Directorist Mobile App for Android & iOS** 🔥🔥🔥
-Boost your directory website’s accessibility and interactivity while turning visitors into paying customers with the Directorist mobile app!
-
-🔥🔥🔥 **AI-Generated Directory Creation** 🔥🔥🔥
-One of our standout features is AI-driven directory creation, which accelerates and streamlines the content creation for directories, making it faster, smarter, and more efficient.
-
-🔥🔥🔥 **Enhanced Integrations with Popular Page Builders Like Gutenberg, Elementor, Bricks, Oxygen** 🔥🔥🔥
-The enhanced integrations of Directorist with Gutenberg, Elementor, Oxygen, and the latest integration with Bricks, Directorist provide the flexibility you need to build a lucrative directory in the blink of an eye.
-
-🔥🔥🔥 **14 Pre-Made Full-Site Templates** 🔥🔥🔥
-Directorist now offers over 14 pre-made templates, allowing users to quickly set up their directories without having to start from scratch. Amazing, right?
+🔥🔥🔥 **[Best plugin & Great support](https://wordpress.org/support/topic/best-plugin-great-support-7/)** 🔥🔥🔥
+I already knew in advance (after testing a few plugins) that this would be the best for listing. But there were country specific and beginner specific problems, so I asked them for help. I never dreamed that such a helpful team could exist. They were patient, always responded quickly and managed to find a solution to everything, resulting in a perfect website. In the end, I learned a lot from them. Thank you very much and I wish the Directorist team all the best.
+– pecaadokveszek
 
 📱 [Launch Your Mobile App Now](https://directorist.com/mobile-app/)
 
@@ -83,7 +72,7 @@ The design of Directorist has been completely revamped with a sleek, modern look
 
 👉 **Sleek Checkout and Payment Process**
 
-Let’s take a look at some of the core features that set this AI Directory Builder apart from others:
+Let's take a look at some of the core features that set this AI Directory Builder apart from others:
 
 == CORE DIRECTORIST FEATURES AT A GLANCE ==
 
@@ -235,7 +224,7 @@ Directorist Business Directory offers cost-effective premium [Extensions](https:
 
 👉 **[Mailchimp Integration](https://directorist.com/product/directorist-mailchimp-integration/)** - Directorist Mailchimp Integration Connects Directorist with Mailchimp. It helps you to make your directory business grow faster and smarter with more leads.
 
-👉 **[GamiPress Integration](https://directorist.com/product/directorist-gamipress-integration/)** - Directorist GamiPress Integration combines GamiPress with Directorist activity events, enhancing your directory website’s interactivity and appeal through a points-based rewards system.
+👉 **[GamiPress Integration](https://directorist.com/product/directorist-gamipress-integration/)** - Directorist GamiPress Integration combines GamiPress with Directorist activity events, enhancing your directory website's interactivity and appeal through a points-based rewards system.
 
 👉 **[WPML Integration](https://directorist.com/product/directorist-wpml-integration/)** - Directorist WPML Integration allows you to create multilingual directory with few steps.
 
