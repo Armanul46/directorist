@@ -414,8 +414,11 @@ if ( ! class_exists( 'ATBDP_Tools' ) ) :
                 foreach ( $metas as $index => $value ) {
                     $meta_value = $post[ $value ] ? self::unescape_data( $post[ $value ] ) : '';
                     $meta_value = $this->maybe_unserialize_csv_string( $meta_value );
-
+                
                     if ( $meta_value ) {
+                        error_log( 'Processing meta: field_key=' . $index . ', csv_column=' . $value . ', meta_value=' . $meta_value );
+                        $this->ensure_select_option_exists( $directory_id, $index, $meta_value );
+                        
                         update_post_meta( $post_id, '_' . $index, $meta_value );
                     }
                 }
@@ -498,6 +501,78 @@ if ( ! class_exists( 'ATBDP_Tools' ) ) :
             $data['redirect_url'] = esc_url( admin_url( 'edit.php?post_type=at_biz_dir&page=tools&step=3' ) );
 
             wp_send_json( $data );
+        }
+
+        /**
+         * Ensure select/radio field option exists in field configuration.
+         *
+         * If the value doesn't exist in the field's options, it will be automatically
+         * added to the field configuration.
+         *
+         * @since 8.0
+         *
+         * @param int    $directory_id Directory type term ID.
+         * @param string $field_key    Field key (without underscore prefix).
+         * @param string $value        Option value to ensure exists.
+         * @return bool True if option was added or already exists, false on failure.
+         */
+        protected function ensure_select_option_exists( $directory_id, $field_key, $value ) {
+            if ( empty( $directory_id ) || empty( $field_key ) || empty( $value ) ) {
+                return false;
+            }
+        
+            // Normalize field key: custom-select-2 -> select_2
+            $normalized_key = $field_key;
+            if ( strpos( $field_key, 'custom-select-' ) === 0 ) {
+                $index = str_replace( 'custom-select-', '', $field_key );
+                $normalized_key = 'select_' . $index;
+            } elseif ( strpos( $field_key, 'custom-radio-' ) === 0 ) {
+                $index = str_replace( 'custom-radio-', '', $field_key );
+                $normalized_key = 'radio_' . $index;
+            }
+        
+            $submission_form = get_term_meta( $directory_id, 'submission_form_fields', true );
+            
+            if ( ! is_array( $submission_form ) || empty( $submission_form['fields'] ) ) {
+                return false;
+            }
+        
+            // Try normalized key first, then original key
+            $actual_field_key = isset( $submission_form['fields'][ $normalized_key ] ) ? $normalized_key : $field_key;
+            
+            if ( empty( $submission_form['fields'][ $actual_field_key ] ) ) {
+                return false;
+            }
+        
+            $field = $submission_form['fields'][ $actual_field_key ];
+        
+            if ( ! in_array( $field['widget_name'] ?? '', [ 'select', 'radio' ], true ) ) {
+                return false;
+            }
+        
+            if ( ! isset( $field['options'] ) || ! is_array( $field['options'] ) ) {
+                $field['options'] = [];
+            }
+        
+            $value_exists = false;
+            foreach ( $field['options'] as $option ) {
+                if ( isset( $option['option_value'] ) && strtolower( (string) $option['option_value'] ) === strtolower( (string) $value ) ) {
+                    $value_exists = true;
+                    break;
+                }
+            }
+        
+            if ( ! $value_exists ) {
+                $field['options'][] = [
+                    'option_value' => sanitize_text_field( $value ),
+                    'option_label' => sanitize_text_field( $value ),
+                ];
+        
+                $submission_form['fields'][ $actual_field_key ] = $field;
+                update_term_meta( $directory_id, 'submission_form_fields', $submission_form );
+            }
+        
+            return true;
         }
 
         /**
