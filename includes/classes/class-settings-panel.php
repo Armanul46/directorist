@@ -186,6 +186,8 @@ SWBD;
                 'description' => $description,
             ];
 
+            $fields = $this->register_web_push_template_fields( $fields );
+
             // Marker Clustering
             $fields['marker_clustering'] = [
                 'type'  => 'toggle',
@@ -3323,8 +3325,13 @@ Please remember that your order may be canceled if you do not make your payment 
                     ],
                     'web_push_templates_note' => [
                         'type'        => 'note',
-                        'title'       => __( 'Web Push Templates', 'directorist' ),
-                        'description' => __( 'This section will contain Web Push title and message templates for each notification event.', 'directorist' ),
+                        'title'       => __( 'Web Push Template Placeholders', 'directorist' ),
+                        'description' => sprintf(
+                            /* translators: 1: LISTING_TITLE placeholder, 2: SITE_NAME placeholder. */
+                            __( 'You can use the following placeholders in Web Push titles and messages: %1$s, %2$s.', 'directorist' ),
+                            '<strong>==LISTING_TITLE==</strong>',
+                            '<strong>==SITE_NAME==</strong>'
+                        ),
                     ],
                     // email templates settings
                     'allow_email_header' => [
@@ -4466,15 +4473,19 @@ Best regards,
                                     'label' => __( 'Templates', 'directorist' ),
                                     'icon' => '<i class="fa fa-comment-alt directorist_info"></i>',
                                     'sections' => apply_filters(
-                                        'directorist_notification_templates_settings_sections', [
-                                            'web_push_templates' => [
-                                                'title'       => __( 'Web Push Templates', 'directorist' ),
-                                                'description' => '',
-                                                'fields'      => [
-                                                    'web_push_templates_note',
+                                        'directorist_notification_templates_settings_sections',
+                                        array_merge(
+                                            [
+                                                'web_push_templates' => [
+                                                    'title'       => __( 'Web Push Templates', 'directorist' ),
+                                                    'description' => '',
+                                                    'fields'      => [
+                                                        'web_push_templates_note',
+                                                    ],
                                                 ],
                                             ],
-                                        ]
+                                            $this->web_push_template_sections()
+                                        )
                                     ),
                                 ],
                             ]
@@ -5145,6 +5156,186 @@ Best regards,
                     'listing_contact_form',
                 ]
             );
+        }
+
+        /**
+         * Register Web Push template fields.
+         *
+         * @param array $fields Setting fields.
+         *
+         * @return array
+         */
+        private function register_web_push_template_fields( $fields ) {
+            foreach ( [ 'admin', 'owner' ] as $recipient ) {
+                foreach ( $this->web_push_template_events( $recipient ) as $event ) {
+                    $title_key   = $this->web_push_template_field_key( $recipient, $event['value'], 'title' );
+                    $message_key = $this->web_push_template_field_key( $recipient, $event['value'], 'message' );
+
+                    $fields[ $title_key ] = [
+                        'type'          => 'text',
+                        'label'         => sprintf(
+                            /* translators: %s: notification event label. */
+                            __( '%s Title', 'directorist' ),
+                            $event['label']
+                        ),
+                        'description'   => __( 'Recommended length: 60 characters or fewer.', 'directorist' ),
+                        'value'         => $event['default_title'],
+                    ];
+
+                    $fields[ $message_key ] = [
+                        'type'          => 'textarea',
+                        'label'         => sprintf(
+                            /* translators: %s: notification event label. */
+                            __( '%s Message', 'directorist' ),
+                            $event['label']
+                        ),
+                        'description'   => __( 'Recommended length: 100 characters or fewer.', 'directorist' ),
+                        'value'         => $event['default_message'],
+                        'rows'          => 3,
+                    ];
+                }
+            }
+
+            return $fields;
+        }
+
+        /**
+         * Get Web Push template settings sections.
+         *
+         * @return array
+         */
+        private function web_push_template_sections() {
+            $sections = [];
+
+            foreach ( [ 'admin', 'owner' ] as $recipient ) {
+                foreach ( $this->web_push_template_events( $recipient ) as $event ) {
+                    $section_key = sprintf( 'web_push_%s_%s_template', $recipient, $event['value'] );
+                    $title       = 'admin' === $recipient
+                        ? sprintf(
+                            /* translators: %s: notification event label. */
+                            __( 'Admin: %s', 'directorist' ),
+                            $event['label']
+                        )
+                        : sprintf(
+                            /* translators: %s: notification event label. */
+                            __( 'Listing Owner: %s', 'directorist' ),
+                            $event['label']
+                        );
+
+                    $sections[ $section_key ] = [
+                        'title'       => $title,
+                        'description' => '',
+                        'fields'      => [
+                            $this->web_push_template_field_key( $recipient, $event['value'], 'title' ),
+                            $this->web_push_template_field_key( $recipient, $event['value'], 'message' ),
+                        ],
+                    ];
+                }
+            }
+
+            return $sections;
+        }
+
+        /**
+         * Build a Web Push template field key.
+         *
+         * @param string $recipient Recipient key.
+         * @param string $event     Event key.
+         * @param string $field     Template field key.
+         *
+         * @return string
+         */
+        private function web_push_template_field_key( $recipient, $event, $field ) {
+            return sprintf( 'web_push_%s_%s_%s', $recipient, $event, $field );
+        }
+
+        /**
+         * Get Web Push template event data.
+         *
+         * @param string $recipient Recipient key.
+         *
+         * @return array
+         */
+        private function web_push_template_events( $recipient ) {
+            $events = 'admin' === $recipient ? $this->web_push_events_to_notify_admin() : $this->web_push_events_to_notify_user();
+
+            return array_map(
+                function ( $event ) use ( $recipient ) {
+                    $event['default_title']   = $this->get_default_web_push_title( $event['value'], $recipient );
+                    $event['default_message'] = $this->get_default_web_push_message( $event['value'], $recipient );
+
+                    return $event;
+                },
+                $events
+            );
+        }
+
+        /**
+         * Get a default Web Push title.
+         *
+         * @param string $event     Event key.
+         * @param string $recipient Recipient key.
+         *
+         * @return string
+         */
+        private function get_default_web_push_title( $event, $recipient ) {
+            $titles = [
+                'order_created'        => __( 'Order created', 'directorist' ),
+                'order_completed'      => __( 'Order completed', 'directorist' ),
+                'payment_received'     => __( 'Payment received', 'directorist' ),
+                'listing_submitted'    => __( 'New listing submitted', 'directorist' ),
+                'listing_published'    => __( 'Listing published', 'directorist' ),
+                'listing_edited'       => __( 'Listing edited', 'directorist' ),
+                'listing_deleted'      => __( 'Listing deleted', 'directorist' ),
+                'listing_renewed'      => __( 'Listing renewed', 'directorist' ),
+                'listing_to_expire'    => __( 'Listing nearly expired', 'directorist' ),
+                'listing_expired'      => __( 'Listing expired', 'directorist' ),
+                'remind_to_renew'      => __( 'Renewal reminder', 'directorist' ),
+                'listing_contact_form' => __( 'New listing message', 'directorist' ),
+                'listing_review'       => __( 'New listing review', 'directorist' ),
+            ];
+
+            if ( 'admin' === $recipient && isset( $titles[ $event ] ) ) {
+                return sprintf(
+                    /* translators: %s: notification title. */
+                    __( 'Admin: %s', 'directorist' ),
+                    $titles[ $event ]
+                );
+            }
+
+            return isset( $titles[ $event ] ) ? $titles[ $event ] : __( 'Directorist notification', 'directorist' );
+        }
+
+        /**
+         * Get a default Web Push message.
+         *
+         * @param string $event     Event key.
+         * @param string $recipient Recipient key.
+         *
+         * @return string
+         */
+        private function get_default_web_push_message( $event, $recipient ) {
+            $messages = [
+                'order_created'        => __( 'An order was created on ==SITE_NAME==.', 'directorist' ),
+                'order_completed'      => __( 'An order was completed on ==SITE_NAME==.', 'directorist' ),
+                'payment_received'     => __( 'A payment was received on ==SITE_NAME==.', 'directorist' ),
+                'listing_submitted'    => __( '==LISTING_TITLE== was submitted on ==SITE_NAME==.', 'directorist' ),
+                'listing_published'    => __( '==LISTING_TITLE== is now published on ==SITE_NAME==.', 'directorist' ),
+                'listing_edited'       => __( '==LISTING_TITLE== was edited on ==SITE_NAME==.', 'directorist' ),
+                'listing_deleted'      => __( '==LISTING_TITLE== was deleted from ==SITE_NAME==.', 'directorist' ),
+                'listing_renewed'      => __( '==LISTING_TITLE== was renewed on ==SITE_NAME==.', 'directorist' ),
+                'listing_to_expire'    => __( '==LISTING_TITLE== is nearly expired on ==SITE_NAME==.', 'directorist' ),
+                'listing_expired'      => __( '==LISTING_TITLE== has expired on ==SITE_NAME==.', 'directorist' ),
+                'remind_to_renew'      => __( 'Please renew ==LISTING_TITLE== on ==SITE_NAME==.', 'directorist' ),
+                'listing_contact_form' => __( 'A new message arrived for ==LISTING_TITLE==.', 'directorist' ),
+                'listing_review'       => __( 'A new review was added to ==LISTING_TITLE==.', 'directorist' ),
+            ];
+
+            if ( 'admin' === $recipient && 'listing_review' === $event ) {
+                return __( 'A new review was submitted on ==SITE_NAME==.', 'directorist' );
+            }
+
+            return isset( $messages[ $event ] ) ? $messages[ $event ] : __( 'You have a new notification from ==SITE_NAME==.', 'directorist' );
         }
     }
 }
