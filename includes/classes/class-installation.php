@@ -73,6 +73,7 @@ if ( ! class_exists( 'ATBDP_Installation' ) ) :
         public static function install() {
             require_once ATBDP_CLASS_DIR . 'class-custom-post.php'; // include custom post class
             require_once ATBDP_CLASS_DIR . 'class-roles.php'; // include custom roles and Caps
+            require_once ATBDP_CLASS_DIR . 'class-web-push.php';
 
             $ATBDP_Custom_Post = new ATBDP_Custom_Post();
             $ATBDP_Custom_Post->register_new_post_types();
@@ -88,6 +89,8 @@ if ( ! class_exists( 'ATBDP_Installation' ) ) :
             // Insert atbdp_roles_mapped option to the db to prevent mapping meta cap
             add_option( 'atbdp_roles_mapped', true );
 
+            self::create_web_push_tables();
+
             $atbdp_option = get_option( 'atbdp_option' );
             $atpdp_setup_wizard = apply_filters( 'atbdp_setup_wizard', true );
 
@@ -102,6 +105,19 @@ if ( ! class_exists( 'ATBDP_Installation' ) ) :
         public static function init() {
             add_action( 'init', [ __CLASS__, 'init_background_updater' ], 5 );
             add_action( 'admin_init', [ __CLASS__, 'install_actions' ] );
+            add_action( 'directorist_installed', [ __CLASS__, 'create_web_push_tables' ] );
+            add_action( 'directorist_updated', [ __CLASS__, 'create_web_push_tables' ] );
+        }
+
+        /**
+         * Create Web Push related database tables.
+         *
+         * @return void
+         */
+        public static function create_web_push_tables() {
+            if ( class_exists( 'Directorist_Web_Push' ) ) {
+                Directorist_Web_Push::create_tables();
+            }
         }
 
         /**
