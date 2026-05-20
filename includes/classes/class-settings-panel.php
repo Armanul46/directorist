@@ -3301,6 +3301,31 @@ Please remember that your order may be canceled if you do not make your payment 
                             ],
                         ],
                     ],
+                    // Web push notification settings.
+                    'web_push_events_note' => [
+                        'type'        => 'note',
+                        'title'       => __( 'Web Push Event Settings', 'directorist' ),
+                        'description' => __( 'Choose which events should send Web Push notifications to admins and listing owners.', 'directorist' ),
+                    ],
+                    'web_push_notify_admin' => [
+                        'label'       => __( 'Notify the Admin when Any of the Selected Event Happens', 'directorist' ),
+                        'type'        => 'checkbox',
+                        'value'       => $this->default_web_push_events_to_notify_admin(),
+                        'options'     => $this->web_push_events_to_notify_admin(),
+                        'description' => __( 'Select the situation when you would like to send a web push notification to the Admin.', 'directorist' ),
+                    ],
+                    'web_push_notify_user' => [
+                        'label'       => __( 'Notify the Listing Owner when Any of the Selected Event Happens', 'directorist' ),
+                        'type'        => 'checkbox',
+                        'value'       => $this->default_web_push_events_to_notify_user(),
+                        'options'     => $this->web_push_events_to_notify_user(),
+                        'description' => __( 'Select the situation when you would like to send a web push notification to the Listing Owner.', 'directorist' ),
+                    ],
+                    'web_push_templates_note' => [
+                        'type'        => 'note',
+                        'title'       => __( 'Web Push Templates', 'directorist' ),
+                        'description' => __( 'This section will contain Web Push title and message templates for each notification event.', 'directorist' ),
+                    ],
                     // email templates settings
                     'allow_email_header' => [
                         'label'         => __( 'Email Header', 'directorist' ),
@@ -4415,6 +4440,47 @@ Best regards,
                         ),
                     ],
 
+                    'notification_settings' => [
+                        'label' => __( 'Notification', 'directorist' ),
+                        'icon' => '<i class="fa fa-bell directorist_Blue"></i>',
+                        'submenu' => apply_filters(
+                            'directorist_notification_settings_submenu', [
+                                'notification_general' => [
+                                    'label' => __( 'General', 'directorist' ),
+                                    'icon' => '<i class="fa fa-bell directorist_info"></i>',
+                                    'sections' => apply_filters(
+                                        'directorist_notification_general_settings_sections', [
+                                            'web_push_events' => [
+                                                'title'       => __( 'Web Push Notifications', 'directorist' ),
+                                                'description' => '',
+                                                'fields'      => [
+                                                    'web_push_events_note',
+                                                    'web_push_notify_admin',
+                                                    'web_push_notify_user',
+                                                ],
+                                            ],
+                                        ]
+                                    ),
+                                ],
+                                'notification_templates' => [
+                                    'label' => __( 'Templates', 'directorist' ),
+                                    'icon' => '<i class="fa fa-comment-alt directorist_info"></i>',
+                                    'sections' => apply_filters(
+                                        'directorist_notification_templates_settings_sections', [
+                                            'web_push_templates' => [
+                                                'title'       => __( 'Web Push Templates', 'directorist' ),
+                                                'description' => '',
+                                                'fields'      => [
+                                                    'web_push_templates_note',
+                                                ],
+                                            ],
+                                        ]
+                                    ),
+                                ],
+                            ]
+                        ),
+                    ],
+
                     'monetization_settings' => [
                         'label' => __( 'Monetization', 'directorist' ),
                         'icon' => '<i class="fa fa-credit-card directorist_info"></i>',
@@ -4926,6 +4992,157 @@ Best regards,
                     'listing_deleted',
                     'listing_contact_form',
                     'listing_review'
+                ]
+            );
+        }
+
+        /**
+         * Get web push events available for admin notifications.
+         *
+         * @return array
+         */
+        public function web_push_events_to_notify_admin() {
+            return apply_filters(
+                'directorist_web_push_events_to_notify_admin', [
+                    [
+                        'value' => 'order_created',
+                        'label' => __( 'Order Created', 'directorist' ),
+                    ],
+                    [
+                        'value' => 'order_completed',
+                        'label' => __( 'Order Completed', 'directorist' ),
+                    ],
+                    [
+                        'value' => 'payment_received',
+                        'label' => __( 'Payment Received', 'directorist' ),
+                    ],
+                    [
+                        'value' => 'listing_submitted',
+                        'label' => __( 'New Listing Submitted', 'directorist' ),
+                    ],
+                    [
+                        'value' => 'listing_published',
+                        'label' => __( 'Listing Approved/Published', 'directorist' ),
+                    ],
+                    [
+                        'value' => 'listing_edited',
+                        'label' => __( 'Listing Edited', 'directorist' ),
+                    ],
+                    [
+                        'value' => 'listing_deleted',
+                        'label' => __( 'Listing Deleted', 'directorist' ),
+                    ],
+                    [
+                        'value' => 'listing_renewed',
+                        'label' => __( 'Listing Renewed', 'directorist' ),
+                    ],
+                    [
+                        'value' => 'listing_contact_form',
+                        'label' => __( 'Listing Contact Form', 'directorist' ),
+                    ],
+                    [
+                        'value' => 'listing_review',
+                        'label' => __( 'Listing Review', 'directorist' ),
+                    ],
+                ]
+            );
+        }
+
+        /**
+         * Get web push events available for listing owner notifications.
+         *
+         * @return array
+         */
+        public function web_push_events_to_notify_user() {
+            return apply_filters(
+                'directorist_web_push_events_to_notify_user', [
+                    [
+                        'value' => 'order_created',
+                        'label' => __( 'Order Created', 'directorist' ),
+                    ],
+                    [
+                        'value' => 'order_completed',
+                        'label' => __( 'Order Completed', 'directorist' ),
+                    ],
+                    [
+                        'value' => 'payment_received',
+                        'label' => __( 'Payment Received', 'directorist' ),
+                    ],
+                    [
+                        'value' => 'listing_submitted',
+                        'label' => __( 'New Listing Submitted', 'directorist' ),
+                    ],
+                    [
+                        'value' => 'listing_published',
+                        'label' => __( 'Listing Approved/Published', 'directorist' ),
+                    ],
+                    [
+                        'value' => 'listing_edited',
+                        'label' => __( 'Listing Edited', 'directorist' ),
+                    ],
+                    [
+                        'value' => 'listing_deleted',
+                        'label' => __( 'Listing Deleted', 'directorist' ),
+                    ],
+                    [
+                        'value' => 'listing_renewed',
+                        'label' => __( 'Listing Renewed', 'directorist' ),
+                    ],
+                    [
+                        'value' => 'listing_to_expire',
+                        'label' => __( 'Listing Nearly Expired', 'directorist' ),
+                    ],
+                    [
+                        'value' => 'listing_expired',
+                        'label' => __( 'Listing Expired', 'directorist' ),
+                    ],
+                    [
+                        'value' => 'remind_to_renew',
+                        'label' => __( 'Remind to Renew', 'directorist' ),
+                    ],
+                    [
+                        'value' => 'listing_contact_form',
+                        'label' => __( 'Listing Contact Form', 'directorist' ),
+                    ],
+                    [
+                        'value' => 'listing_review',
+                        'label' => __( 'Listing Review', 'directorist' ),
+                    ],
+                ]
+            );
+        }
+
+        /**
+         * Get default web push events for admin notifications.
+         *
+         * @return array
+         */
+        public function default_web_push_events_to_notify_admin() {
+            return apply_filters(
+                'directorist_default_web_push_events_to_notify_admin', [
+                    'order_completed',
+                    'payment_received',
+                    'listing_submitted',
+                    'listing_published',
+                ]
+            );
+        }
+
+        /**
+         * Get default web push events for listing owner notifications.
+         *
+         * @return array
+         */
+        public function default_web_push_events_to_notify_user() {
+            return apply_filters(
+                'directorist_default_web_push_events_to_notify_user', [
+                    'order_completed',
+                    'payment_received',
+                    'listing_submitted',
+                    'listing_published',
+                    'listing_renewed',
+                    'listing_expired',
+                    'listing_contact_form',
                 ]
             );
         }
