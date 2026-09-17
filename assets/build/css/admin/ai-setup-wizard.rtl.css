@@ -462,7 +462,7 @@
 }
 
 .directorist-ai-setup__back {
-  margin: 0 0 16px -10px;
+  margin: 0 -10px 16px 0;
 }
 
 .directorist-ai-setup__back:hover,
@@ -561,7 +561,7 @@
 .directorist-ai-setup__input-with-icon svg {
   position: absolute;
   top: 50%;
-  left: 12px;
+  right: 12px;
   color: var(--directorist-ai-muted);
   pointer-events: none;
   -webkit-transform: translateY(-50%);
@@ -569,7 +569,7 @@
 }
 
 .directorist-ai-setup__input-with-icon .directorist-ai-setup__text-input {
-  padding-left: 36px;
+  padding-right: 36px;
 }
 
 .directorist-ai-setup__tags {
@@ -593,7 +593,7 @@
       -ms-flex-align: center;
           align-items: center;
   gap: 4px;
-  padding: 4px 6px 4px 12px;
+  padding: 4px 12px 4px 6px;
   border-radius: var(--directorist-ai-radius-pill);
   background: var(--directorist-ai-tag);
   color: var(--directorist-ai-soft-text);
@@ -776,8 +776,8 @@
 
 .directorist-ai-setup__field-row.selected {
   margin: 0 -8px;
-  padding-right: 8px;
   padding-left: 8px;
+  padding-right: 8px;
   border-radius: var(--directorist-ai-radius-input);
   background: var(--directorist-ai-accent-tint);
 }
@@ -799,7 +799,7 @@
   -webkit-flex: 1;
       -ms-flex: 1;
           flex: 1;
-  margin-left: -4px;
+  margin-right: -4px;
   padding: 5px 8px;
   border: 1px solid transparent;
   border-radius: var(--directorist-ai-radius-input);
@@ -906,7 +906,7 @@
 .directorist-ai-setup__toggle span:before {
   position: absolute;
   top: 3px;
-  left: 3px;
+  right: 3px;
   width: 16px;
   height: 16px;
   border-radius: 50%;
@@ -923,8 +923,8 @@
 }
 
 .directorist-ai-setup__toggle input:checked + span:before {
-  -webkit-transform: translateX(18px);
-          transform: translateX(18px);
+  -webkit-transform: translateX(-18px);
+          transform: translateX(-18px);
 }
 
 .directorist-ai-setup__launch {
@@ -1011,5 +1011,3 @@
             align-items: flex-start;
   }
 }
-
-/*# sourceMappingURL=ai-setup-wizard.css.map*/
