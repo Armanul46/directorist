@@ -5,7 +5,7 @@ Tags: business directory, listings, classifieds, directory plugin, directory
 Requires at least: 4.6
 Tested up to: 7.1
 Requires PHP: 7.0
-Stable tag: 8.10.4
+Stable tag: 8.10.5
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -299,6 +299,22 @@ Directorist is developer-friendly with plenty of hooks and filters. You can exte
 Directorist comes with an AI-powered directory builder. Use the Create with AI option, provide directory name, location and AI will build the directory for you.
 
 == Changelog ==
+
+= 8.10.5 - Oct 18, 2026 =
+
+**Improved**
+
+- Improved FormGent enquiries with Send and Received tabs in the user dashboard. (#3040)
+
+**Fixed**
+
+- Pricing Plans bank transfer order creation and completion emails not being sent to buyers and admins. (#3087)
+- Installed Mailchimp extension updates not being detected. (#3083)
+- M-Pesa extension installation status and updates not being recognized correctly. (#3082)
+- Installed Listing Importer extension showing the Install button again in Themes & Extensions. (#3081)
+- Category-dependent fields disappearing after selecting a location in listing forms. (#3079)
+- Long listing rejection reasons being clipped in the user dashboard. (#3070)
+- Deactivated or deleted payment gateways remaining visible at checkout. (#3044)
 
 = 8.10.4 - Oct 11, 2026 =
 
